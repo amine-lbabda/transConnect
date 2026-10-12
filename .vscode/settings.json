@@ -1,0 +1,5 @@
+{
+    "python.analysis.enableDjangoSupport": true,
+    "python.analysis.typeCheckingMode": "off",
+    "python.analysis.autoSearchPaths": true,
+}

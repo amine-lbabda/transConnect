@@ -221,3 +221,4 @@ __marimo__/
 *.pdf
 mohamed_amine_lbabda.sqlite3
 uv.lock
+.django-stub-gen

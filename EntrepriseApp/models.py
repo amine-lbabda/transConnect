@@ -1,11 +1,29 @@
 from django.contrib.auth.models import AbstractUser
+from django.core.exceptions import ValidationError
+from django.core.validators import MinValueValidator, RegexValidator
 from django.db import models
+from django.utils import timezone
+
+
+def validate_email(email: str):
+    if not email:
+        raise ValidationError("Email est manquant !")
+    if not email.endswith("@gmail.com"):
+        raise ValidationError(
+            "Seuls les emails appartenant au domaine gmail.com sont acceptés"
+        )
+
+
+REGEX_MATRICULE_VALIDATEUR = RegexValidator(
+    regex=r"^\d{7}[/ -]?[A-Za-z][/ -]?[ABDNPEabdnpe][/ -]?[MPCNEmpcne][/ -]?\d{3}$",
+    message="Matricule fiscale pas respectée !",
+)
 
 
 # Create your models here.
 class Utilisateur(AbstractUser):
     user_id = models.CharField(max_length=8, editable=False, primary_key=True)
-    email = models.EmailField(unique=True)
+    email = models.EmailField(unique=True, validators=[validate_email])
     role = models.CharField(
         max_length=20,
         choices=[
@@ -19,13 +37,34 @@ class Utilisateur(AbstractUser):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def save(self, *args, **kwargs):
+        if not self.user_id:
+            self.user_id = self._generate_user_id()
+        self.full_clean()
+        super().save(*args, **kwargs)
+
+    @classmethod
+    def _generate_user_id(cls):
+        annee = timezone.now().strftime("%Y")[2:]
+        prefix = f"{annee}user"
+        last_val = (
+            cls.objects.filter(user_id__startswith=prefix).order_by("-user_id").first()
+        )
+        count_year = (int(last_val[6:]) + 1) % 100 if last_val else 00
+        if count_year > 99:
+            raise ValidationError("Limite des utilisateurs atteint !")
+
     def __str__(self):
         return f"user_id:{self.user_id}\nemail:{self.email}\nrole:{self.role}\ntelephone:{self.telephone}\n"
 
 
 class Entreprise(models.Model):
     raison_social = models.CharField(max_length=100)
-    matricule_fiscal = models.CharField(max_length=8, unique=True)
+    matricule_fiscal = models.CharField(
+        max_length=8,
+        unique=True,
+        validators=[REGEX_MATRICULE_VALIDATEUR],
+    )
     type_entreprise = models.CharField(
         max_length=15,
         choices=[
@@ -33,7 +72,7 @@ class Entreprise(models.Model):
             ("transporteur", "Transporteur"),
         ],
     )
-    addresse = models.TextField()
+    addresse = models.TextField(validators=[MinValueValidator(20)])
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     gerant = models.OneToOneField(
