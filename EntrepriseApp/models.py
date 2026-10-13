@@ -36,6 +36,7 @@ class Utilisateur(AbstractUser):
     telephone = models.CharField(max_length=30)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    REQUIRED_FIELDS = ["email", "telephone"]
 
     def save(self, *args, **kwargs):
         if not self.user_id:
@@ -53,7 +54,7 @@ class Utilisateur(AbstractUser):
         count_year = (int(last_val[6:]) + 1) % 100 if last_val else 00
         if count_year > 99:
             raise ValidationError("Limite des utilisateurs atteint !")
-        return prefix
+        return f"{prefix}{count_year:02d}"
 
     def __str__(self):
         return f"user_id:{self.user_id}\nemail:{self.email}\nrole:{self.role}\ntelephone:{self.telephone}\n"
