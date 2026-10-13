@@ -1,3 +1,5 @@
+import typing
+
 from django.contrib.auth.models import AbstractUser
 from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator, RegexValidator
@@ -36,7 +38,7 @@ class Utilisateur(AbstractUser):
     telephone = models.CharField(max_length=30)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    REQUIRED_FIELDS = ["email", "telephone"]
+    REQUIRED_FIELDS: typing.ClassVar = ["email", "telephone"]
 
     def save(self, *args, **kwargs):
         if not self.user_id:
