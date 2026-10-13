@@ -51,3 +51,4 @@ class Expedition(models.Model):
         val = int(last_value.reference[-5:]) + 1 if last_value else 1
         if val > 99999:
             raise ValidationError("La limite des expéditions atteinte !")
+        return f"{prefix}{val:05d}"

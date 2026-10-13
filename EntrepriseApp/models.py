@@ -53,6 +53,7 @@ class Utilisateur(AbstractUser):
         count_year = (int(last_val[6:]) + 1) % 100 if last_val else 00
         if count_year > 99:
             raise ValidationError("Limite des utilisateurs atteint !")
+        return prefix
 
     def __str__(self):
         return f"user_id:{self.user_id}\nemail:{self.email}\nrole:{self.role}\ntelephone:{self.telephone}\n"
