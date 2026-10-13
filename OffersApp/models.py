@@ -17,7 +17,7 @@ TYPE_CAPACITY_RANGES = {
 class Offres(models.Model):
     prix = models.DecimalField(
         decimal_places=10,
-        max_digits=10,
+        max_digits=13,
         validators=[MinValueValidator(0.0, "Le prix doit être différent de zéro !")],
     )
     delai_jours = models.PositiveIntegerField(

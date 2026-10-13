@@ -2,7 +2,7 @@ import typing
 
 from django.contrib.auth.models import AbstractUser
 from django.core.exceptions import ValidationError
-from django.core.validators import MinValueValidator, RegexValidator
+from django.core.validators import MinLengthValidator, RegexValidator
 from django.db import models
 from django.utils import timezone
 
@@ -53,7 +53,7 @@ class Utilisateur(AbstractUser):
         last_val = (
             cls.objects.filter(user_id__startswith=prefix).order_by("-user_id").first()
         )
-        count_year = (int(last_val[6:]) + 1) % 100 if last_val else 00
+        count_year = (int(last_val.user_id[-2:]) + 1) if last_val else 0
         if count_year > 99:
             raise ValidationError("Limite des utilisateurs atteint !")
         return f"{prefix}{count_year:02d}"
@@ -65,7 +65,7 @@ class Utilisateur(AbstractUser):
 class Entreprise(models.Model):
     raison_social = models.CharField(max_length=100)
     matricule_fiscal = models.CharField(
-        max_length=8,
+        max_length=13,
         unique=True,
         validators=[REGEX_MATRICULE_VALIDATEUR],
     )
@@ -76,7 +76,7 @@ class Entreprise(models.Model):
             ("transporteur", "Transporteur"),
         ],
     )
-    addresse = models.TextField(validators=[MinValueValidator(20)])
+    addresse = models.TextField(validators=[MinLengthValidator(20)])
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     gerant = models.OneToOneField(

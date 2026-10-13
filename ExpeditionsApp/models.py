@@ -8,7 +8,7 @@ class Expedition(models.Model):
     reference = models.CharField(max_length=20, unique=True, editable=False)
     ville_depart = models.CharField(max_length=67)
     ville_arrive = models.CharField(max_length=67)
-    poids_kg = models.DecimalField(decimal_places=10, max_digits=10)
+    poids_kg = models.DecimalField(decimal_places=2, max_digits=10)
     date_souhaitte = models.DateField()
     description = models.TextField()
     statut = models.CharField(
