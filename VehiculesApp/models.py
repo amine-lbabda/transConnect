@@ -10,7 +10,9 @@ from EntrepriseApp.models import Entreprise
 class Vehicules(models.Model):
     immatriculation = models.CharField(max_length=20, unique=True, validators=[])
     capacite_kg = models.PositiveIntegerField(
-        validators=MinValueValidator(1, "Une capacité nulle ne peut pas être acceptée")
+        validators=[
+            MinValueValidator(1, "Une capacité nulle ne peut pas être acceptée")
+        ]
     )
     type_vehicules = models.CharField(
         max_length=50,

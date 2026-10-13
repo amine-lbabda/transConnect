@@ -31,7 +31,7 @@ class Utilisateur(AbstractUser):
             ("transporteur", "Transporteur"),
             ("administrateur", "administrateur"),
         ],
-        default="Chargeur",
+        default="chargeur",
     )
     telephone = models.CharField(max_length=30)
     created_at = models.DateTimeField(auto_now_add=True)
