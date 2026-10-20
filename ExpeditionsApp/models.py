@@ -34,7 +34,7 @@ class Expedition(models.Model):
     def save(self, *args, **kwargs):
         if not self.reference:
             self.reference = self._generate_reference()
-        if self.statut != "publiée":
+        if self.statut == "publiée":
             raise ValidationError("On ne peut pas accepter les offres !")
         self.full_clean()
         super().save(*args, **kwargs)

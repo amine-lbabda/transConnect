@@ -2,7 +2,6 @@ from django.contrib import admin
 
 from .models import Vehicules
 
-
 @admin.register(Vehicules)
 class VehiculesAdmin(admin.ModelAdmin):
     list_display = (
