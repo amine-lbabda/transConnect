@@ -1,4 +1,9 @@
+import csv
+import typing
+
 from django.contrib import admin
+from django.db.models import QuerySet
+from django.http import HttpResponse
 from django.utils.html import format_html
 
 from .models import Offres
@@ -7,13 +12,13 @@ from .models import Offres
 @admin.register(Offres)
 class OffresAdmin(admin.ModelAdmin):
     list_display = (
+        "expedition",
         "prix",
         "delai_jours",
         "statut_colore",
         "date_proposition",
         "entreprise",
         "vehicule",
-        "expedition",
     )
     list_display_links = ("expedition",)
     list_filter = ("statut", "date_proposition")
@@ -23,7 +28,7 @@ class OffresAdmin(admin.ModelAdmin):
         "vehicule__immatriculation",
         "expedition__reference",
     )
-    list_editable = ("prix", "delai_jours") 
+    list_editable = ("prix", "delai_jours")
     ordering = ("-date_proposition",)
     autocomplete_fields = ("expedition", "entreprise", "vehicule")
     fieldsets = (
@@ -39,7 +44,14 @@ class OffresAdmin(admin.ModelAdmin):
             },
         ),
     )
-    readonly_fields = ("date_proposition", "statut_colore")
+
+    def get_readonly_fields(self, request, obj=None):
+        base = list(self.readonly_fields or ("date_proposition", "statut_colore"))
+        if obj and obj.statut == "acceptee":
+            for field in ("prix", "delai_jours"):
+                if field not in base:
+                    base.append(field)
+        return base
 
     @admin.display(description="Statut")
     def statut_colore(self, obj):
@@ -54,3 +66,22 @@ class OffresAdmin(admin.ModelAdmin):
             couleurs.get(obj.statut, "#999"),
             obj.get_statut_display(),
         )
+
+    @admin.action(description="Exporter la séléction en csv")
+    def exporter_offres_csv(modeladmin, request, queryset: QuerySet[Offres]):
+        res = HttpResponse(content_type="text/csv")
+        res["Content-Disposition"] = 'attachement;filename="offres.csv"'
+        writter = csv.writer(res)
+        writter.writerow(["reference_expedition", "transporteur", "prix", "statut"])
+        for offre in queryset.select_related("expedition", "entreprise"):
+            writter.writerow(
+                [
+                    offre.expedition.reference,
+                    offre.entreprise.raison_social,
+                    offre.prix,
+                    offre.statut,
+                ]
+            )
+        return res
+
+    actions: typing.ClassVar = ["exporter_offres_csv"]

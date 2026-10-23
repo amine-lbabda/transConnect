@@ -223,3 +223,4 @@ mohamed_amine_lbabda.sqlite3
 uv.lock
 .django-stub-gen
 .kolo
+.uv-cache

@@ -2,6 +2,7 @@ from django.contrib import admin
 
 from .models import Vehicules
 
+
 @admin.register(Vehicules)
 class VehiculesAdmin(admin.ModelAdmin):
     list_display = (
@@ -19,3 +20,11 @@ class VehiculesAdmin(admin.ModelAdmin):
     )
     list_editable = ("capacite_kg", "type_vehicules", "disponible")
     ordering = ("immatriculation",)
+    fieldsets = (
+        (
+            "Information générales",
+            {
+                "fields": ("immatriculation", "type_vehicules", "disponible"),
+            },
+        ),
+    )
