@@ -12,7 +12,7 @@ class Expedition(models.Model):
     date_souhaitte = models.DateField()
     description = models.TextField()
     statut = models.CharField(
-        max_length=20,
+        max_length=20,  
         choices=[
             ("publiée", "Publiée"),
             ("attribuée", "Attribuée"),

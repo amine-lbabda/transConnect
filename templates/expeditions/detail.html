@@ -1,0 +1,25 @@
+<h1>Détails de l'expédition:{{expedition.reference}}</h1>
+<ul>
+    <li>{{expedition.description}}</li>
+    <li>{{expedition.statut}}</li>
+    <li>{{expedition.poids_kg}}</li>
+</ul>
+
+<h2>Offres associés</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Prix</th>
+            <th>Transporteur</th>
+        </tr>
+    </thead>
+    <tbody>
+        {%for offre in offres%}
+        <tr>
+            <td>{{offre.prix}}</td>
+            <td>{{offre.gerant.raison_social}}</td>
+            <td>{{offre.gerant.}}</td>
+        </tr>
+        {%endfor%}
+    </tbody>
+</table>
