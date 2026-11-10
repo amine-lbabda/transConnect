@@ -1,8 +1,14 @@
-<h1>Liste des expéditions publiés</h1>
-<ul>
-    {%for e in expeditions %}
-    <a href="{%url 'expeditions:details_expedition' reference=e.reference%}">
-        {{e.reference}}
-    </a>
+{% extends 'base.html' %}
+{% block title %}
+  expéditions
+{% endblock %}
+{% block contenu %}
+  <h1>Liste des expéditions publiés</h1>
+  <ul>
+    {% for e in expeditions %}
+      <li>
+        <a href="{% url 'expeditions:details_expedition' reference=e.reference %}">{{ e.reference }}</a>
+      </li>
     {% endfor %}
-</ul>
+  </ul>
+{% endblock %}

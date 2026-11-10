@@ -134,7 +134,7 @@ class Command(BaseCommand):
                     "poids_kg": Decimal(fake.random_int(minimum, maximum)),
                     "date_souhaitte": timezone.localdate(),
                     "description": fake.paragraph(nb_sentences=2),
-                    "statut": "attribuée",
+                    "statut": "publiée",
                     "entreprise": chargeurs[index % len(chargeurs)],
                 },
             )

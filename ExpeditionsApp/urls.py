@@ -5,5 +5,5 @@ from .views import *
 app_name = "expeditions"
 urlpatterns = [
     path("", ListViewExpedition.as_view(), name="liste"),
-    path("<str:reference>", detail_expedition, name="details_expedition"),
+    path("<str:reference>", ExpeditionDetailView.as_view(), name="details_expedition"),
 ]

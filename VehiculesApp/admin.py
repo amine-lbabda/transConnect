@@ -1,8 +1,7 @@
 from django.contrib import admin
-
 from .models import Vehicules
-
-
+# Register your models here.
+#admin.site.register(Vehicules)
 @admin.register(Vehicules)
 class VehiculesAdmin(admin.ModelAdmin):
     list_display = (
@@ -18,13 +17,9 @@ class VehiculesAdmin(admin.ModelAdmin):
         "immatriculation",
         "entreprise__raison_social",
     )
-    list_editable = ("capacite_kg", "type_vehicules", "disponible")
-    ordering = ("immatriculation",)
-    fieldsets = (
-        (
-            "Information générales",
-            {
-                "fields": ("immatriculation", "type_vehicules", "disponible"),
-            },
-        ),
+    list_editable = (
+        "capacite_kg",
+        "type_vehicules",
+        "disponible",
     )
+    ordering = ("immatriculation",)

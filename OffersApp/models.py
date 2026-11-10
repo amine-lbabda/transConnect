@@ -46,6 +46,12 @@ class Offres(models.Model):
 
     def clean(self):
         super().clean()
+        if self.expedition_id and self.expedition.statut != "publiée":
+            raise ValidationError(
+                "Une expédition ne peut recevoir de nouvelles offres que si "
+                "son statut est publiée."
+            )
+
         if self.entreprise_id and self.entreprise.type_entreprise != "transporteur":
             raise ValidationError("Le type d'entreprise doit être transporteur !")
 

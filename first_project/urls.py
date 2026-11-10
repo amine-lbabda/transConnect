@@ -24,7 +24,8 @@ from .views import homies, homiesNames
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", homies),
+    path("", homies, name="home"),
     path("home/<str:nom>/", homiesNames),
     path("expeditions/", include("ExpeditionsApp.urls")),
+    path("vehicules/", include("VehiculesApp.urls")),
 ]

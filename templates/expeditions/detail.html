@@ -1,25 +1,30 @@
-<h1>Détails de l'expédition:{{expedition.reference}}</h1>
-<ul>
-    <li>{{expedition.description}}</li>
-    <li>{{expedition.statut}}</li>
-    <li>{{expedition.poids_kg}}</li>
-</ul>
+{% extends 'base.html' %}
+{% block title %}
+  Detail de l'expédition
+{% endblock %}
+{% block contenu %}
+  <h1>Détails de l'expédition:{{ expedition.reference }}</h1>
+  <ul>
+    <li>{{ expedition.description }}</li>
+    <li>{{ expedition.statut }}</li>
+    <li>{{ expedition.poids_kg }}</li>
+  </ul>
 
-<h2>Offres associés</h2>
-<table>
+  <h2>Offres associés</h2>
+  <table>
     <thead>
-        <tr>
-            <th>Prix</th>
-            <th>Transporteur</th>
-        </tr>
+      <tr>
+        <th>Prix</th>
+        <th>Transporteur</th>
+      </tr>
     </thead>
     <tbody>
-        {%for offre in offres%}
+      {% for offre in offres %}
         <tr>
-            <td>{{offre.prix}}</td>
-            <td>{{offre.gerant.raison_social}}</td>
-            <td>{{offre.gerant.}}</td>
+          <td>{{ offre.prix }}</td>
+          <td>{{ offre.entreprise.raison_social }}</td>
         </tr>
-        {%endfor%}
+      {% endfor %}
     </tbody>
-</table>
+  </table>
+{% endblock %}
