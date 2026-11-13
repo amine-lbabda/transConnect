@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}
+  expéditions
+{% endblock %}
+{% block contenu %}
+  <h1>Liste des entreprises</h1>
+  <ul>
+    {% for e in entreprises %}
+      <li>
+        <p>{{ e.raison_social }}</p>
+        <p>{{ e.matricule_fiscal }}</p>
+        <p>{{ e.type_entreprise }}</p>
+        <p>{{ e.addresse }}</p>
+        <p>{{ e.gerant }}</p>
+      </li>
+    {% empty %}
+      <li>Pas d'entreprises</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

@@ -28,4 +28,6 @@ urlpatterns = [
     path("home/<str:nom>/", homiesNames),
     path("expeditions/", include("ExpeditionsApp.urls")),
     path("vehicules/", include("VehiculesApp.urls")),
+    path("offres/", include("OffersApp.urls")),
+    path("entreprises/", include("EntrepriseApp.urls")),
 ]

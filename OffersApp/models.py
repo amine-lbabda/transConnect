@@ -43,6 +43,7 @@ class Offres(models.Model):
     vehicule = models.ForeignKey(
         "VehiculesApp.Vehicules", on_delete=models.CASCADE, related_name="offres"
     )
+    updated_at = models.DateTimeField(auto_now=True)
 
     def clean(self):
         super().clean()

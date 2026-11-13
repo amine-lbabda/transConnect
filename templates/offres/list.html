@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}
+  expéditions
+{% endblock %}
+{% block contenu %}
+  <h1>Liste des entreprises</h1>
+  <ul>
+    {% for o in Offres %}
+      <li>
+        <p>{{o.prix}}</p>
+        <p>{{o.delai_jours}}</p>
+        <p>{{o.statut}}</p>
+        <p>{{o.date_proposition}}</p>
+        <p>{{o.entreprise}}</p>
+      </li>
+    {% empty %}
+      <li>Pas de entreprises</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
