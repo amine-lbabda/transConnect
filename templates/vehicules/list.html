@@ -1,18 +1,26 @@
 {% extends 'base.html' %}
-{% block title %}
-  expéditions
-{% endblock %}
+{% block title %}Véhicules{% endblock %}
 {% block contenu %}
-  <h1>Liste des véhicules</h1>
-  <ul>
+  <div class="page-header">
+    <h1>Véhicules</h1>
+    <a class="btn btn-brand" href="{% url 'vehicules:create' %}">Ajouter un véhicule</a>
+  </div>
+  <section class="section-card">
+  <ul class="data-grid">
     {% for v in vehicules %}
-      <li>
-        <a href="{% url 'vehicules:update' v.pk %}">{{ v.immatriculation }}</a>
-        <p>{{ v.type_vehicules }}</p>
-        <a href="{% url 'vehicules:delete' v.pk %}">Supprimer le véhicule</a>
+      <li class="data-card">
+        <div>
+          <p>{{ v.immatriculation }}</p>
+          <p>{{ v.type_vehicules }}</p>
+        </div>
+        <div class="data-actions">
+          <a class="btn btn-sm btn-outline-primary" href="{% url 'vehicules:update' v.pk %}">Modifier</a>
+          <a class="btn btn-sm btn-outline-danger" href="{% url 'vehicules:delete' v.pk %}">Supprimer</a>
+        </div>
       </li>
     {% empty %}
-      <li>Pas de véhicules</li>
+      <li class="empty-state">Aucun véhicule enregistré.</li>
     {% endfor %}
   </ul>
+  </section>
 {% endblock %}

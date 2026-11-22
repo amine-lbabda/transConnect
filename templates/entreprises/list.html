@@ -1,20 +1,29 @@
 {% extends 'base.html' %}
-{% block title %}
-  expéditions
-{% endblock %}
+{% block title %}Entreprises{% endblock %}
 {% block contenu %}
-  <h1>Liste des entreprises</h1>
-  <ul>
+  <div class="page-header">
+    <h1>Entreprises</h1>
+    <a class="btn btn-brand" href="{% url 'entreprises:create' %}">Ajouter une entreprise</a>
+  </div>
+  <section class="section-card">
+  <ul class="data-grid">
     {% for e in entreprises %}
-      <li>
-        <p>{{ e.raison_social }}</p>
-        <p>{{ e.matricule_fiscal }}</p>
-        <p>{{ e.type_entreprise }}</p>
-        <p>{{ e.addresse }}</p>
-        <p>{{ e.gerant }}</p>
+      <li class="data-card">
+        <div>
+          <p>{{ e.raison_social }}</p>
+          <p>Matricule : {{ e.matricule_fiscal }}</p>
+          <p>Type : {{ e.type_entreprise }}</p>
+          <p>{{ e.addresse }}</p>
+          <p>Gérant : {{ e.gerant }}</p>
+        </div>
+        <div class="data-actions">
+          <a class="btn btn-sm btn-outline-primary" href="{% url 'entreprises:update' e.pk %}">Modifier</a>
+          <a class="btn btn-sm btn-outline-danger" href="{% url 'entreprises:delete' e.pk %}">Supprimer</a>
+        </div>
       </li>
     {% empty %}
-      <li>Pas d'entreprises</li>
+      <li class="empty-state">Aucune entreprise enregistrée.</li>
     {% endfor %}
   </ul>
+  </section>
 {% endblock %}

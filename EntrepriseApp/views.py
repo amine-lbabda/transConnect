@@ -22,7 +22,7 @@ class EntrepriseListView(ListView):
     model = Entreprise
     template_name = "entreprises/list.html"
     fields = "__all__"
-    context_object_name = "Entreprise"
+    context_object_name = "entreprises"
 
 
 class EntrepriseUpdateView(UpdateView):

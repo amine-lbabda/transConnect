@@ -1,20 +1,29 @@
 {% extends 'base.html' %}
-{% block title %}
-  expéditions
-{% endblock %}
+{% block title %}Offres{% endblock %}
 {% block contenu %}
-  <h1>Liste des entreprises</h1>
-  <ul>
+  <div class="page-header">
+    <h1>Offres</h1>
+    <a class="btn btn-brand" href="{% url 'offres:create' %}">Nouvelle offre</a>
+  </div>
+  <section class="section-card">
+  <ul class="data-grid">
     {% for o in Offres %}
-      <li>
-        <p>{{o.prix}}</p>
-        <p>{{o.delai_jours}}</p>
-        <p>{{o.statut}}</p>
-        <p>{{o.date_proposition}}</p>
-        <p>{{o.entreprise}}</p>
+      <li class="data-card">
+        <div>
+          <p>{{ o.prix }} TND</p>
+          <p>Délai : {{ o.delai_jours }} jour(s)</p>
+          <p>Statut : {{ o.statut }}</p>
+          <p>Proposée le : {{ o.date_proposition|date:"d/m/Y" }}</p>
+          <p>{{ o.entreprise }}</p>
+        </div>
+        <div class="data-actions">
+          <a class="btn btn-sm btn-outline-primary" href="{% url 'offres:update' o.pk %}">Modifier</a>
+          <a class="btn btn-sm btn-outline-danger" href="{% url 'offres:delete' o.pk %}">Supprimer</a>
+        </div>
       </li>
     {% empty %}
-      <li>Pas de entreprises</li>
+      <li class="empty-state">Aucune offre enregistrée.</li>
     {% endfor %}
   </ul>
+  </section>
 {% endblock %}

@@ -44,14 +44,14 @@ class OffreCreateView(CreateView):
 
 class OffresListView(ListView):
     model = Offres
-    template_name = "forms/list.html"
+    template_name = "offres/list.html"
     fields = "__all__"
     context_object_name = "Offres"
 
 
 class OffresUpdateView(UpdateView):
-    model = Vehicules
-    template_name = "vehicules/form.html"
+    model = Offres
+    template_name = "offres/form.html"
     fields = ["expedition", "vehicule", "prix", "delai_jours"]  # noqa: RUF012
 
     def get_success_url(self):
@@ -62,5 +62,5 @@ class OffresUpdateView(UpdateView):
 
 class OffresDeleteView(DeleteView):
     model = Offres
-    template_name = "forms/confirm_delete.html"
+    template_name = "offres/confirm_delete.html"
     context_object_name = "Offre"

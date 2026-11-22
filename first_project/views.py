@@ -1,8 +1,9 @@
 from django.http import HttpRequest, HttpResponse
+from django.shortcuts import render
 
 
 def homies(req: HttpRequest):
-    return HttpResponse("<h1>Welcome to TransConnect</h1>")
+    return render(req, "home.html")
 
 
 def homiesNames(req: HttpRequest, nom: str):

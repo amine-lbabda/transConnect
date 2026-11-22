@@ -1,12 +1,17 @@
 {% extends 'base.html' %}
-{% block title %}
-  expéditions
-{% endblock %}
+{% block title %}Véhicule{% endblock %}
 {% block contenu %}
-  <h1>Forumlaire véhicule</h1>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Enregister</button>
-  </form>
+  <section class="section-card form-card">
+    <div class="page-header">
+      <h1>Véhicule</h1>
+    </div>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <div class="d-flex gap-2 mt-4">
+        <button class="btn btn-brand" type="submit">Enregistrer</button>
+        <a class="btn btn-outline-secondary" href="{% url 'vehicules:liste' %}">Annuler</a>
+      </div>
+    </form>
+  </section>
 {% endblock %}

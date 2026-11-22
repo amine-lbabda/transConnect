@@ -3,15 +3,21 @@
   Detail de l'expédition
 {% endblock %}
 {% block contenu %}
-  <h1>Détails de l'expédition:{{ expedition.reference }}</h1>
-  <ul>
-    <li>{{ expedition.description }}</li>
-    <li>{{ expedition.statut }}</li>
-    <li>{{ expedition.poids_kg }}</li>
-  </ul>
+  <div class="page-header">
+    <h1>Détails de l'expédition</h1>
+  </div>
+  <section class="section-card mb-4">
+    <ul class="detail-list">
+      <li><strong>Référence</strong><span>{{ expedition.reference }}</span></li>
+      <li><strong>Description</strong><span>{{ expedition.description }}</span></li>
+      <li><strong>Statut</strong><span>{{ expedition.statut }}</span></li>
+      <li><strong>Poids</strong><span>{{ expedition.poids_kg }} kg</span></li>
+    </ul>
+  </section>
 
-  <h2>Offres associés</h2>
-  <table>
+  <h2 class="h4 mb-3">Offres associées</h2>
+  <section class="section-card">
+  <table class="table table-hover align-middle">
     <thead>
       <tr>
         <th>Prix</th>
@@ -27,4 +33,5 @@
       {% endfor %}
     </tbody>
   </table>
+  </section>
 {% endblock %}
