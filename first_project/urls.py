@@ -19,6 +19,7 @@ from django.contrib import admin
 from django.urls import include, path
 
 import first_project.admin_health
+from EntrepriseApp.views import RegistrationView
 
 from .views import homies, homiesNames
 
@@ -30,4 +31,6 @@ urlpatterns = [
     path("vehicules/", include("VehiculesApp.urls")),
     path("offres/", include("OffersApp.urls")),
     path("entreprises/", include("EntrepriseApp.urls")),
+    path("comptes/", include("django.contrib.auth.urls")),
+    path("comptes/registration", RegistrationView.as_view(), name="registration"),
 ]
